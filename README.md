@@ -6,7 +6,7 @@ The Javascript version of the Appier Admin API client.
 
 | Name               | Type  | Default                   | Description                                                  |
 | ------------------ | ----- | ------------------------- | ------------------------------------------------------------ |
-| **ADMIN_BASE_URL** | `str` | `http://localhost:8080/"` | The base URL to the Appier Admin server instance to be used. |
+| **ADMIN_BASE_URL** | `str` | `http://localhost:8080/` | The base URL to the Appier Admin server instance to be used. |
 
 ## License
 
