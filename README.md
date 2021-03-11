@@ -1,4 +1,4 @@
-# Appier Admin API for Javascript
+# Appier Admin API (for Javascript)
 
 The Javascript version of the Appier Admin API client.
 
