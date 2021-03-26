@@ -1,35 +1,77 @@
-import { OAuth2API, mix, load, conf } from "yonius";
+import { API as YoniusAPI, mix, load, conf } from "yonius";
+import { ModelAPI } from "./model";
 
-const ADMIN_BASE_URL = "http://localhost:8080/";
-const ADMIN_ID = null;
-const ADMIN_SECRET = null;
+const BASE_URL = "http://localhost:8080/";
 
-export class API extends mix(OAuth2API) {
+
+export class AppierAPI extends mix(YoniusAPI).with(ModelAPI) {
     constructor(kwargs = {}) {
         super(kwargs);
-        this.baseUrl = conf("ADMIN_BASE_URL", ADMIN_BASE_URL);
-        this.clientId = conf("ADMIN_ID", ADMIN_ID);
-        this.clientSecret = conf("ADMIN_SECRET", ADMIN_SECRET);
-        this.baseUrl = kwargs.baseUrl === undefined ? this.baseUrl : kwargs.baseUrl;
-        this.clientId = kwargs.clientId === undefined ? this.clientId : kwargs.clientId;
-        this.clientSecret =
-            kwargs.clientSecret === undefined ? this.clientSecret : kwargs.clientSecret;
-        this.accessToken = kwargs.accessToken === undefined ? null : kwargs.accessToken;
-        this.refreshToken = kwargs.refreshToken === undefined ? null : kwargs.refreshToken;
-        this.sessionId = kwargs.sessionId === undefined ? null : kwargs.sessionId;
+        this.baseUrl = conf("ADMIN_URL", BASE_URL);
+        this.username = conf("ADMIN_USERNAME", null);
+        this.password = conf("ADMIN_PASSWORD", null);
+        this.secretKey = conf("ADMIN_SECRET_KEY", null);
+        this.baseUrl = kwargs.base_url === undefined ? this.baseUrl : kwargs.base_url;
+        this.username = kwargs.username === undefined ? this.username : kwargs.username;
+        this.password = kwargs.password === undefined ? this.password : kwargs.password;
+        this.secretKey = kwargs.secret_key === undefined ? this.secretKey : kwargs.secret_key;
+        this.sessionId = kwargs.session_id === undefined ? this.sessionId : kwargs.session_id;
     }
 
     static async load() {
         await load();
     }
 
-    get oauthTypes() {
-        return ["param"];
+    async build(method, url, options = {}) {
+        await super.build(method, url, options);
+        options.params = options.params !== undefined ? options.params : {};
+        options.kwargs = options.kwargs !== undefined ? options.kwargs : {};
+        options.headers = options.headers !== undefined ? options.headers : {};
+        const auth = options.kwargs.auth === undefined ? true : options.kwargs.auth;
+        delete options.kwargs.auth;
+        if (auth && this.secretKey) options.headers["X-Secret-Key"] = this.secretKey;
+        if (auth && !this.secretKey) options.params.sid = await this.getSessionId();
+    }
+    
+    async getSessionId() {
+        if (this.sessionId) return this.sessionId;
+        await this.login();
+        return this.sessionId;
     }
 
-    get tokenDefault() {
-        return false;
+    async authCallback(params, headers) {
+        this.sessionId = null;
+        const sessionId = await this.getSessionId();
+        params.sid = sessionId;
+    }
+
+    async login(username = undefined, password = undefined) {
+        username = username !== undefined ? username : this.username;
+        password = password !== undefined ? password : this.password;
+        const url = this.baseUrl + "api/admin/login";
+        const contents = await this.post(url, {
+            callback: false,
+            auth: false,
+            username: username,
+            password: password
+        });
+        this.username = contents.username || null;
+        this.sessionId = contents.session_id || null;
+        this.tokens = contents.tokens || null;
+        this.trigger("auth", contents);
+        return this.sessionId;
+    }
+
+    isAuth() {
+        if (!this.username || !this.password) return false;
+        return true;
+    }
+
+    async ping() {
+        const url = this.baseUrl + "ping";
+        const contents = await this.get(url, { auth: False });
+        return contents
     }
 }
 
-export default API;
+export default AppierAPI;
