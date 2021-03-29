@@ -3,7 +3,6 @@ import { ModelAPI } from "./model";
 
 const BASE_URL = "http://localhost:8080/";
 
-
 export class AppierAPI extends mix(YoniusAPI).with(ModelAPI) {
     constructor(kwargs = {}) {
         super(kwargs);
@@ -32,7 +31,7 @@ export class AppierAPI extends mix(YoniusAPI).with(ModelAPI) {
         if (auth && this.secretKey) options.headers["X-Secret-Key"] = this.secretKey;
         if (auth && !this.secretKey) options.params.sid = await this.getSessionId();
     }
-    
+
     async getSessionId() {
         if (this.sessionId) return this.sessionId;
         await this.login();
@@ -69,8 +68,8 @@ export class AppierAPI extends mix(YoniusAPI).with(ModelAPI) {
 
     async ping() {
         const url = this.baseUrl + "ping";
-        const contents = await this.get(url, { auth: False });
-        return contents
+        const contents = await this.get(url, { auth: false });
+        return contents;
     }
 }
 
