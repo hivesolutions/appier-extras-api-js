@@ -3,7 +3,7 @@ import { ModelAPI } from "./model";
 
 const BASE_URL = "http://localhost:8080/";
 
-export class AppierAPI extends mix(YoniusAPI).with(ModelAPI) {
+export class APIAdmin extends mix(YoniusAPI).with(ModelAPI) {
     constructor(kwargs = {}) {
         super(kwargs);
         this.baseUrl = conf("ADMIN_URL", BASE_URL);
@@ -73,4 +73,4 @@ export class AppierAPI extends mix(YoniusAPI).with(ModelAPI) {
     }
 }
 
-export default AppierAPI;
+export default APIAdmin;

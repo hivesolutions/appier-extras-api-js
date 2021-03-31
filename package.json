@@ -1,31 +1,32 @@
 {
-    "name": "appier-admin-api",
+    "name": "appier-extras-api",
     "version": "0.1.0",
-    "description": "The Appier Admin API client",
+    "description": "The Appier Extras API client",
     "keywords": [
         "api",
         "client",
+        "extras",
         "admin",
         "appier",
         "hive"
     ],
-    "homepage": "https://github.com/hivesolutions/appier_admin_api_js#readme",
+    "homepage": "https://github.com/hivesolutions/appier_extras_api_js#readme",
     "bugs": {
-        "url": "https://github.com/hivesolutions/appier_admin_api_js/issues"
+        "url": "https://github.com/hivesolutions/appier_extras_api_js/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/hivesolutions/appier_admin_api_js.git"
+        "url": "git+https://github.com/hivesolutions/appier_extras_api_js.git"
     },
     "license": "Apache-2.0",
     "author": {
         "name": "Hive Solutions",
         "url": "https://www.hive.pt"
     },
-    "main": "dist/appier-admin.cjs.js",
-    "unpkg": "dist/appier-admin.umd.js",
-    "module": "dist/appier-admin.esm.js",
-    "browser": "dist/appier-admin.umd.js",
+    "main": "dist/appier-extras.cjs.js",
+    "unpkg": "dist/appier-extras.umd.js",
+    "module": "dist/appier-extras.esm.js",
+    "browser": "dist/appier-extras.umd.js",
     "files": [
         "LICENSE",
         "dist/**/*",
