@@ -1,9 +1,9 @@
 import { API as YoniusAPI, mix, load, conf } from "yonius";
-import { ModelAPI } from "./model";
+import { DatabaseAPI } from "./database.js";
 
-const BASE_URL = "http://localhost:8080/";
+const BASE_URL = "http://localhost/api/admin/";
 
-export class APIAdmin extends mix(YoniusAPI).with(ModelAPI) {
+export class APIAdmin extends mix(YoniusAPI).with(DatabaseAPI) {
     constructor(kwargs = {}) {
         super(kwargs);
         this.baseUrl = conf("ADMIN_URL", BASE_URL);
@@ -47,7 +47,7 @@ export class APIAdmin extends mix(YoniusAPI).with(ModelAPI) {
     async login(username = undefined, password = undefined) {
         username = username !== undefined ? username : this.username;
         password = password !== undefined ? password : this.password;
-        const url = this.baseUrl + "api/admin/login";
+        const url = this.baseUrl + "login";
         const contents = await this.post(url, {
             callback: false,
             auth: false,
