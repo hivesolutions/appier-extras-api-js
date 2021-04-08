@@ -18,14 +18,14 @@ export const ModelAPI = superclass =>
         }
 
         async updateModel(model, name, payload) {
-            const url = `${this.baseUrl}admin/models/${model}/${name}`;
-            const response = await this.put(url, { dataJ: payload });
+            const url = `${this.baseUrl}admin/models/${model}/${name}/edit`;
+            const response = await this.post(url, { dataJ: payload });
             return response;
         }
 
         async deleteModel(model, name) {
-            const url = `${this.baseUrl}admin/models/${model}/${name}`;
-            const response = await this.delete(url);
+            const url = `${this.baseUrl}admin/models/${model}/${name}/delete`;
+            const response = await this.get(url);
             return response;
         }
     };
