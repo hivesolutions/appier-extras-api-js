@@ -13,7 +13,7 @@ const nodePath = process.env.NODE_PATH
     : null;
 const banner =
     "/**\n" +
-    ` * Appier Admin API (for Javascript) ${pkg.version}.\n` +
+    ` * Appier Extras API (for Javascript) ${pkg.version}.\n` +
     " *\n" +
     ` * Copyright (c) 2014-${new Date().getFullYear()} Hive Solutions Lda.\n` +
     " *\n" +
@@ -25,7 +25,7 @@ export default [
     {
         input: "js/index.js",
         output: {
-            name: "appierAdmin",
+            name: "appierExtras",
             file: pkg.browser,
             banner: banner,
             format: "umd",
