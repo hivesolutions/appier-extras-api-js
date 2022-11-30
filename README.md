@@ -14,6 +14,6 @@ Appier Extras API for Javascript is currently licensed under the [Apache License
 
 ## Build Automation
 
-[![Build Status](https://github.com/hivesolutions/appier_extras_api_js/workflows/Main%20Workflow/badge.svg)](https://github.com/hivesolutions/appier_extras_api_js/actions)
+[![Build Status](https://github.com/hivesolutions/appier-extras-api-js/workflows/Main%20Workflow/badge.svg)](https://github.com/hivesolutions/appier-extras-api-js/actions)
 [![npm Status](https://img.shields.io/npm/v/appier-extras-api.svg)](https://www.npmjs.com/package/appier-extras-api)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/)
