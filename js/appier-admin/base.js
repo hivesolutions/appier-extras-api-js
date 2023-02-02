@@ -47,7 +47,7 @@ export class APIAdmin extends mix(YoniusAPI).with(DatabaseAPI) {
     async login(username = undefined, password = undefined) {
         username = username !== undefined ? username : this.username;
         password = password !== undefined ? password : this.password;
-        const url = this.baseUrl + "login";
+        const url = `${this.baseUrl}login`;
         const contents = await this.post(url, {
             callback: false,
             auth: false,
@@ -67,7 +67,7 @@ export class APIAdmin extends mix(YoniusAPI).with(DatabaseAPI) {
     }
 
     async ping() {
-        const url = this.baseUrl + "ping";
+        const url = `${this.baseUrl}ping`;
         const contents = await this.get(url, { auth: false });
         return contents;
     }
